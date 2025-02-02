@@ -93,7 +93,7 @@
 
 .product-list-container {
   position: absolute;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   top: 100vh;
   /* Initially off-screen */
   left: 0;
