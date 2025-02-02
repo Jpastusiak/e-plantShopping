@@ -1,11 +1,16 @@
 import React, { useState,useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from './CartSlice';
 
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
+    const cart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+    const totalItemsInCart = cart.items.reduce((total, item) => total + item.quantity, 0);// Calculate total items in the cart
 
     const plantsArray = [
         {
@@ -282,13 +287,12 @@ function ProductList() {
                     <h1><div>{category.category}</div></h1>
                     <div className="product-list">
                         {category.plants.map((plant, plantIndex) => (
-                            console.log("Plant:", plant),
                         <div className="product-card" key={plantIndex}>
                             <img className="product-image" src={plant.image} alt={plant.name} />
                             <div className="product-title">{plant.name}</div>
                             <div className="product-cost">{plant.cost}</div>
                             <div className="product-description">{plant.description}</div>
-                            <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                            <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>,
                         </div>
                         ))}
                     </div>
