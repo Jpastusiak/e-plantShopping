@@ -9,27 +9,49 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    let totalAmount = 0;
+        cart.forEach((item) => {
+            const itemCost = parseInt(item.cost.split('$')[1]);
+            totalAmount += itemCost * item.quantity;
+        });
+    return totalAmount;
   };
 
+  //Close cart window to see plants grid
   const handleContinueShopping = (e) => {
-   
+    onContinueShopping (e);
   };
 
-
-
+  //Increments the quantity of a plant from the cart
   const handleIncrement = (item) => {
+    const updateItem = { ...item };
+        updateItem.quantity++;
+        dispatch(updateQuantity(updateItem));
   };
 
+   //Decrements the quantity of a plant from the cart
   const handleDecrement = (item) => {
-   
+    const updateItem = { ...item };
+        if (updateItem.quantity == 1){
+            dispatch(removeItem(item.name));
+        }else{
+            updateItem.quantity--;
+            dispatch(updateQuantity(updateItem));
+        }
   };
 
+  //Removing a plant entirely from the cart
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+  };
+
+  //Project doesnt handle this function yet
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
   return (
